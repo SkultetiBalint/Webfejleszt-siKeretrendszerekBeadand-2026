@@ -1,0 +1,133 @@
+:root {
+  /* Colors */
+  --color-primary: #c85a7c;
+  --color-primary-dark: #a84564;
+  --color-secondary: #f7d6e0;
+  --color-accent: #7a4dff;
+  --color-bg: #fff8fb;
+  --color-surface: #ffffff;
+  --color-text: #2c2430;
+  --color-text-muted: #6b6370;
+  --color-border: #eadbe2;
+  --color-success: #2f8f5b;
+
+  /* Spacing - 8px base */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  /* Radius */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+
+  /* Typography */
+  --fs-100: clamp(0.875rem, 0.82rem + 0.2vw, 1rem);
+  --fs-200: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+  --fs-300: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+  --fs-400: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+  --fs-500: clamp(2rem, 1.5rem + 2vw, 3rem);
+
+  /* Layout */
+  --container-width: 1200px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: Arial, Helvetica, sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: var(--fs-100);
+  line-height: 1.6;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+main {
+  min-height: 100vh;
+}
+
+.container {
+  width: min(100% - 2rem, var(--container-width));
+  margin-inline: auto;
+}
+
+.section {
+  padding: var(--space-6) 0;
+}
+
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+}
+
+.button,
+button {
+  min-width: 44px;
+  min-height: 44px;
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 0.75rem 1rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+.button-primary {
+  background: var(--color-primary);
+  color: white;
+}
+
+.button-primary:hover {
+  background: var(--color-primary-dark);
+}
+
+button:focus-visible,
+.button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  background: white;
+  color: black;
+  padding: 0.75rem 1rem;
+  z-index: 999;
+  border-radius: var(--radius-md);
+}
+
+.skip-link:focus {
+  top: 1rem;
+}

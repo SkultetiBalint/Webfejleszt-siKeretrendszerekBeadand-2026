@@ -1,0 +1,19 @@
+<section class="container section">
+  <header class="page-header">
+    <h1>Profil / Foglalásaim</h1>
+    <p>Itt láthatod a közelgő időpontjaidat.</p>
+  </header>
+
+  <section aria-labelledby="appointments-title">
+    <h2 id="appointments-title">Közelgő foglalások</h2>
+
+    <div class="appointments-grid">
+      <app-appointment-card
+        *ngFor="let appointment of appointments"
+        [service]="appointment.service"
+        [date]="appointment.date"
+        [status]="appointment.status">
+      </app-appointment-card>
+    </div>
+  </section>
+</section>

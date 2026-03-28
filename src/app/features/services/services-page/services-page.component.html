@@ -1,0 +1,15 @@
+<section class="container section">
+  <header class="page-header">
+    <h1>Szolgáltatások</h1>
+    <p>Válaszd ki a neked legmegfelelőbb kezelést.</p>
+  </header>
+
+  <div class="services-grid">
+    <app-service-card
+      *ngFor="let service of services"
+      [title]="service.title"
+      [duration]="service.duration"
+      [price]="service.price"
+    ></app-service-card>
+  </div>
+</section>

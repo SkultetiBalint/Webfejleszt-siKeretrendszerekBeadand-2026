@@ -1,0 +1,16 @@
+<app-hero
+  title="Gyors és elegáns időpontfoglalás"
+  subtitle="Válassz szolgáltatást, nézd meg a szabad időpontokat, és foglalj néhány kattintással."
+></app-hero>
+
+<section class="container section">
+  <h2>Kiemelt szolgáltatások</h2>
+  <div class="service-grid">
+    <app-service-card
+      *ngFor="let service of featuredServices"
+      [title]="service.title"
+      [duration]="service.duration"
+      [price]="service.price"
+    ></app-service-card>
+  </div>
+</section>

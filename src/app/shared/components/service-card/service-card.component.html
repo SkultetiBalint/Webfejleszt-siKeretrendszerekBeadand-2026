@@ -1,0 +1,11 @@
+<article class="card service-card">
+  <h3>{{ title }}</h3>
+  <p>Időtartam: {{ duration }}</p>
+  <p>Ár: {{ price }}</p>
+  <button
+    class="button button-primary"
+    type="button"
+    [attr.aria-label]="'Foglalás indítása ehhez: ' + title">
+    Kiválasztom
+  </button>
+</article>

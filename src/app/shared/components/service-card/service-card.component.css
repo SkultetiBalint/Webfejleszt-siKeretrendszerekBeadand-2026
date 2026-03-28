@@ -1,0 +1,9 @@
+.service-card {
+  padding: var(--space-4);
+}
+
+.service-card h3 {
+  margin-top: 0;
+  margin-bottom: var(--space-2);
+  font-size: var(--fs-300);
+}

@@ -1,114 +1,121 @@
-# Receptgyűjtemény
+## Projekt leírás
 
-**Webes alkalmazás specifikáció**
-**Programrendszerek fejlesztése gyakorlat**
-**MEAN Stack – Demonstrációs projekt**
-**2026. tavasz**
+A **NailTime** egy Angular alapú, reszponzív műkörmös időpontfoglaló alkalmazás felülete.  
+Az alkalmazás célja, hogy a vendégek gyorsan és egyszerűen át tudják tekinteni az elérhető szolgáltatásokat, időpontot tudjanak foglalni, valamint meg tudják nézni a saját foglalásaikat.
 
----
+A felület elsődleges célcsoportja:
+- műkörmös szolgáltatást igénybe vevő vendégek,
+- a szolgáltató, aki a jövőben adminisztrációs vagy kezelőfelületi funkciókon keresztül használhatja az alkalmazást.
 
-## 1. Bevezetés
-
-A Receptgyűjtemény egy MEAN stack alapú webes alkalmazás, amely lehetővé teszi receptek létrehozását, böngészését és értékelését. A projekt célja a kurzus során tanult technológiák demonstrálása egy egyszerű, de teljes értékű CRUD rendszeren keresztül.
-
-A rendszer két szerepkört különböztet meg: adminisztrátor és felhasználó. Az admin előre regisztrálva van, a felhasználók pedig a regisztrációs felületen keresztül hozhatnak létre fiókot.
-
-### 1.1. Technológiai stack
-
-- **MongoDB** – NoSQL adatbázis
-- **Express.js** – Szerver oldali keretrendszer
-- **Angular** – Kliens oldali keretrendszer
-- **Node.js** – Futási környezet
+Az első mérföldkő fókusza a frontend UI, a navigáció, a reszponzív megjelenés, az accessibility és a komponens-alapú felépítés.
 
 ---
 
-## 2. Szerepkörök
+## Funkcionális követelmények
 
-### 2.1. Adminisztrátor
+### 1. Navigáció és oldalstruktúra
+- Az alkalmazás többoldalas, kliensoldali routingot használ.
+- A felhasználó navigációs menün keresztül érheti el a fő oldalakat.
+- Az aktuális oldal a navigációban vizuálisan kiemelve jelenik meg.
+- Ismeretlen URL esetén egyedi 404 oldal jelenik meg.
 
-Az admin előre regisztrált fiókkal rendelkezik (seed adat). Jogosultságai:
+### 2. Kezdőlap
+- Bemutatja az alkalmazás fő célját.
+- Kiemelt CTA (Call to Action) gombot tartalmaz időpontfoglaláshoz.
+- Röviden megjeleníti a népszerű vagy kiemelt szolgáltatásokat.
 
-- Kategóriák létrehozása, módosítása és törlése
-- Receptek létrehozása, módosítása és törlése
-- Összes értékelés megtekintése és moderálása (törlés)
+### 3. Szolgáltatások oldal
+- Kilistázza az elérhető körmös szolgáltatásokat.
+- Minden szolgáltatás külön kártyán jelenik meg.
+- A szolgáltatáshoz megjelenik név, időtartam és ár.
 
-### 2.2. Felhasználó
+### 4. Időpontfoglalás oldal
+- A felhasználó űrlapon keresztül adhatja meg a foglalás adatait.
+- Az űrlap tartalmazza a név, e-mail, szolgáltatás, dátum/idő és megjegyzés mezőket.
+- A sikeres művelet után visszajelzés jelenik meg a felhasználónak.
 
-A felhasználó a regisztrációs felületen keresztül hozhat létre fiókot. Jogosultságai:
+### 5. Profil / Foglalásaim oldal
+- A felhasználó láthatja a korábbi vagy közelgő foglalásait.
+- Az időpontok külön kártyákon jelennek meg.
+- Minden foglalásnál látható a szolgáltatás neve, időpontja és státusza.
 
-- Receptek böngészése és részleteinek megtekintése
-- Értékelés írása receptekhez
-- Saját értékeléseinek módosítása és törlése
-- Receptek szűrése kategória szerint
-
----
-
-## 3. Funkcionális követelmények
-
-1. A felhasználó regisztrálhat az alkalmazásba felhasználónév, e-mail és jelszó megadásával.
-2. A felhasználó bejelentkezhet az e-mail és jelszó párosával, sikeres bejelentkezés után JWT tokent kap.
-3. Az admin kategóriákat hozhat létre, módosíthat és törölhet.
-4. Az admin recepteket hozhat létre hozzávalókkal együtt, módosíthatja és törölheti azokat.
-5. A bejelentkezett felhasználó értékelést írhat receptekhez (1–5 pontszám + opcionális komment).
-6. A felhasználó módosíthatja és törölheti a saját értékeléseit.
-7. Bárki (bejelentkezés nélkül is) böngészheti a recepteket és szűrhet kategória szerint.
-8. A recept részletei oldalon megjeleníthetőek a hozzávalók és az értékelések.
-9. Az adatbázis demo adatokat tartalmaz (legalább 3 kategória, 5 recept, hozzávalókkal).
-
----
-
-## 4. Nem-funkcionális követelmények
-
-1. A jelszó tárolás bcrypt hash-sel történik.
-2. JWT alapú autentikáció, token lejárati idővel.
-3. Role-based hozzáférés-vezérlés middleware-rel megvalósítva.
-4. CORS konfiguráció a kliens-szerver kommunikációhoz.
-5. Hibakezelés: a szerver értelmes HTTP státuszkodokat és hibaüzeneteket ad vissza.
-6. Reszponzív felhasználói felület Angular Material komponensekkel.
+### 6. UI és felhasználói élmény
+- A felület mobilközpontú (mobile-first) felépítésű.
+- A megjelenés mobil, tablet és desktop nézetre is optimalizált.
+- A gombok és interaktív elemek érintőképernyőn is kényelmesen használhatók.
+- A felület egységes design token rendszerre épül.
 
 ---
 
-## 5. Kliens oldali nézetek
+## Nem-funkcionális követelmények
 
-Az Angular alkalmazás az alábbi fő nézeteket (oldalakat) tartalmazza:
+### Technológiai döntések
+- **Frontend keretrendszer:** Angular
+- **Nyelv:** TypeScript
+- **Stílusozás:** CSS (globális tokenek + komponensszintű stílusok)
+- **Routing:** Angular Router
+- **Űrlapkezelés:** Template-driven form (`ngModel`)
+- **Backend:** az első mérföldkőben nincs tényleges backend, a foglalási és profil adatok mock / statikus adatokkal jelennek meg
 
-### 5.1. Nyilvános nézetek
+### UX és megjelenési elvárások
+- Mobile-first megközelítés
+- Legalább 3 breakpoint: mobil, tablet, desktop
+- Egységes spacing, színek, tipográfia, árnyékok, lekerekítések
+- Könnyen értelmezhető navigáció
+- Világos információs hierarchia
+- Modern, nőies, letisztult vizuális stílus a témához illeszkedően
 
-- **Kezdőlap** – Receptek listája, kategória szűrővel
-- **Recept részletek** – Leírás, hozzávalók, értékelések
-- **Bejelentkezés** – E-mail és jelszó megadása
-- **Regisztráció** – Új fiók létrehozása
+### Accessibility elvárások
+- Szemantikus HTML elemek használata
+- Helyes heading-hierarchia
+- Látható fókuszállapot interaktív elemeken
+- Alapvető billentyűzetes navigálhatóság
+- ARIA attribútumok használata, ahol szükséges
+- Skip link az oldal elején
 
-### 5.2. Bejelentkezett felhasználói nézetek
-
-- **Értékelés írása / módosítása** – Pontszám és komment űrlap
-
-### 5.3. Admin nézetek
-
-- **Kategória kezelés** – CRUD műveletek kategóriákra
-- **Recept kezelés** – CRUD műveletek receptekre és hozzávalókra
-- **Értékelés moderálás** – Értékelések áttekintése és törlése
+### Teljesítmény és karbantarthatóság
+- Komponens-alapú felépítés
+- Újrahasznosítható UI komponensek
+- Egyszerűen bővíthető struktúra
+- Kisebb, önálló felelősségi körű komponensek
 
 ---
 
-## 6. Telepítés és futtatás
+## Felhasználói szerepkörök / interakciós módok
 
-A rendszer minden komponense konténerizált formában lesz üzemeltetve. A rendszer futtatásához szükséges előfeltételek:
+### 1. Vendég / látogató
+A vendég megtekintheti a kezdőlapot és a szolgáltatásokat, valamint megnyithatja a foglalási oldalt.  
+A fő célja az információgyűjtés és az időpontfoglalás.
 
-- Node.js (v24)
-- MongoDB (lokális)
-- Angular CLI (v21)
+### 2. Regisztrált ügyfél / visszatérő felhasználó
+A felhasználó a saját foglalásait is megtekintheti a Profil / Foglalásaim oldalon.  
+A fő célja a meglévő időpontok áttekintése és a későbbi ügyfélfolyamat támogatása.
+
+> Megjegyzés: az első mérföldkőben a szerepkörök elsősorban UI-szinten különülnek el, nem jogosultsági rendszerrel.
 
 ---
 
-## 7. Mappaszerkezet
+## Képernyő-lista / sitemap
 
-A GitHub repository várt struktúrája:
+### Fő oldalak
+1. **Kezdőlap** (`/`)
+2. **Szolgáltatások** (`/services`)
+3. **Időpontfoglalás** (`/booking`)
+4. **Profil / Foglalásaim** (`/profile`)
+5. **404 / Not Found** (`**`)
 
-| Mappa / Fájl | Leírás |
-|---|---|
-| `/server` | Express.js szerver forráskód |
-| `/client` | Angular alkalmazás forráskód |
-| `/docs` | Dokumentáció (ez a specifikáció is) |
-| `/prompts` | AI prompt-ok és elemzés |
-| `README.md` | Telepítési útmutató |
+### Navigáció leírása
+- A felső navigációs sáv minden főoldalon látható.
+- A menüből közvetlenül elérhető a Kezdőlap, Szolgáltatások, Foglalás és Profil oldal.
+- Az aktuális route vizuálisan kiemelt állapotban jelenik meg.
+- Hibás URL esetén a felhasználó a 404 oldalra kerül, ahonnan visszanavigálhat a kezdőlapra.
+
+### Egyszerű sitemap
+
+```text
+Kezdőlap
+├── Szolgáltatások
+├── Időpontfoglalás
+├── Profil / Foglalásaim
+└── 404 oldal
+```

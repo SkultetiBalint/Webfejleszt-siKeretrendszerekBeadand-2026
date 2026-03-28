@@ -1,0 +1,39 @@
+<section class="card booking-form" aria-labelledby="booking-title">
+  <h2 id="booking-title">Új időpont foglalása</h2>
+
+  <form (ngSubmit)="submitForm()" #bookingNgForm="ngForm">
+    <div class="form-group">
+      <label for="name">Név</label>
+      <input id="name" name="name" type="text" [(ngModel)]="name" required />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" [(ngModel)]="email" required />
+    </div>
+
+    <div class="form-group">
+      <label for="service">Szolgáltatás</label>
+      <select id="service" name="service" [(ngModel)]="service" required>
+        <option value="">Válassz</option>
+        <option value="Gél lakk">Gél lakk</option>
+        <option value="Erősített gél lakk">Erősített gél lakk</option>
+        <option value="Műköröm építés">Műköröm építés</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="date">Dátum és idő</label>
+      <input id="date" name="date" type="datetime-local" [(ngModel)]="date" required />
+    </div>
+
+    <div class="form-group">
+      <label for="note">Megjegyzés</label>
+      <textarea id="note" name="note" [(ngModel)]="note" rows="4"></textarea>
+    </div>
+
+    <button type="submit" class="button button-primary">Foglalás elküldése</button>
+
+    <p class="success" aria-live="polite">{{ successMessage }}</p>
+  </form>
+</section>

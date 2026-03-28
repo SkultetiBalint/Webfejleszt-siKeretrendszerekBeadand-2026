@@ -1,0 +1,19 @@
+.appointment-card {
+  padding: var(--space-4);
+  display: grid;
+  gap: var(--space-2);
+}
+
+.appointment-card h3 {
+  margin: 0 0 var(--space-2);
+  font-size: var(--fs-300);
+}
+
+.appointment-card p {
+  margin: 0;
+}
+
+.appointment-card button {
+  justify-self: start;
+  margin-top: var(--space-3);
+}

@@ -1,10 +1,10 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/Ew36zBjj)
 # Webfejlesztési keretrendszerek — Projektmunka
 
-> **Hallgató neve:** _[Írd ide a neved]_  
-> **Neptun kód:** _[Írd ide a Neptun kódod]_  
-> **Projekt téma:** _[Írd ide a választott témát]_  
-> **Keretrendszer:** _[Írd ide a választott keretrendszert]_
+> **Hallgató neve:** _Skultéti Bálint_  
+> **Neptun kód:** _B4WAJX_  
+> **Projekt téma:** _Műkörmös időpontfoglaló oldal_  
+> **Keretrendszer:** _Angular_
 
 ---
 
@@ -34,6 +34,11 @@ npm start
 │   ├── COMPONENTS.md        # Komponens-terv
 │   └── AI_PROMPT_LOG.md     # AI prompt napló
 ├── src/                     # Forráskód
+├── public/                  # Publikus statikus fájlok (ha van)
+├── .github/workflows/       # Automatikus értékelés (ne módosítsd!)
+├── angular.json             # Angular workspace konfiguráció
+├── package.json             # Projektfüggőségek és scriptek
+└── README.md                # Projektleírás
 └── .github/workflows/       # Automatikus értékelés (ne módosítsd!)
 ```
 

@@ -1,0 +1,22 @@
+<header class="site-header">
+  <nav class="navbar" aria-label="Fő navigáció">
+    <a class="brand" routerLink="/">NailTime</a>
+
+    <ul class="nav-list">
+      <li>
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          Kezdőlap
+        </a>
+      </li>
+      <li>
+        <a routerLink="/services" routerLinkActive="active">Szolgáltatások</a>
+      </li>
+      <li>
+        <a routerLink="/booking" routerLinkActive="active">Foglalás</a>
+      </li>
+      <li>
+        <a routerLink="/profile" routerLinkActive="active">Profil</a>
+      </li>
+    </ul>
+  </nav>
+</header>
