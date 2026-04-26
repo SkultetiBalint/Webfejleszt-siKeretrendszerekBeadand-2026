@@ -1,11 +1,22 @@
 <article class="card service-card">
   <h3>{{ title }}</h3>
+  <p *ngIf="description" class="service-card__desc">{{ description }}</p>
   <p>Időtartam: {{ duration }}</p>
   <p>Ár: {{ price }}</p>
-  <button
-    class="button button-primary"
-    type="button"
-    [attr.aria-label]="'Foglalás indítása ehhez: ' + title">
-    Kiválasztom
-  </button>
+
+  <div class="service-card__actions">
+    <a
+      *ngIf="id"
+      class="button"
+      [routerLink]="['/services', id]"
+      [attr.aria-label]="'Részletek megtekintése: ' + title"
+    >Részletek</a>
+
+    <a
+      class="button button-primary"
+      [routerLink]="['/booking']"
+      [queryParams]="id ? { serviceId: id } : null"
+      [attr.aria-label]="'Foglalás indítása ehhez: ' + title"
+    >Kiválasztom</a>
+  </div>
 </article>

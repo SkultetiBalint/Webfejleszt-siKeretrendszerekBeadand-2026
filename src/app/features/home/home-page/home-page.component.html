@@ -5,12 +5,27 @@
 
 <section class="container section">
   <h2>Kiemelt szolgáltatások</h2>
-  <div class="service-grid">
-    <app-service-card
-      *ngFor="let service of featuredServices"
-      [title]="service.title"
-      [duration]="service.duration"
-      [price]="service.price"
-    ></app-service-card>
-  </div>
+
+  <app-loading-spinner *ngIf="loading()" label="Szolgáltatások betöltése..."></app-loading-spinner>
+
+  <p *ngIf="error()" role="alert" class="error-msg">{{ error() }}</p>
+
+  <ng-container *ngIf="!loading() && !error()">
+    <app-empty-state
+      *ngIf="featured().length === 0"
+      icon="✨"
+      title="Egyelőre nincs aktív szolgáltatás"
+      message="Az adminisztrátor hamarosan feltölti az ajánlatokat."
+    ></app-empty-state>
+
+    <div *ngIf="featured().length > 0" class="service-grid">
+      <app-service-card
+        *ngFor="let service of featured()"
+        [id]="service.id"
+        [title]="service.name"
+        [duration]="service.durationMinutes + ' perc'"
+        [price]="service.price + ' Ft'"
+      ></app-service-card>
+    </div>
+  </ng-container>
 </section>

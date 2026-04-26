@@ -1,0 +1,29 @@
+<section class="container section">
+  <header class="page-header">
+    <h1>Műkörmöseink</h1>
+    <p>Tapasztalt szakemberek, akik várnak rád.</p>
+  </header>
+
+  <app-loading-spinner *ngIf="loading()" label="Művészek betöltése..."></app-loading-spinner>
+
+  <app-empty-state
+    *ngIf="!loading() && artists().length === 0"
+    icon="💅"
+    title="Nincs megjeleníthető műkörmös"
+    message=""
+  ></app-empty-state>
+
+  <div class="artists-grid" *ngIf="!loading() && artists().length > 0">
+    <article *ngFor="let a of artists()" class="card artist-card">
+      <img *ngIf="a.photoUrl" [src]="a.photoUrl" [alt]="a.fullName" class="artist-card__photo" />
+      <h3>{{ a.fullName }}</h3>
+      <p class="artist-card__bio">{{ a.bio }}</p>
+      <p><strong>Munkaidő:</strong> {{ a.workingHours }}</p>
+      <p><strong>Aktív szolgáltatások:</strong> {{ servicesOf(a.id) }} db</p>
+      <p class="artist-card__contact">
+        <a [href]="'mailto:' + a.email">{{ a.email }}</a><br />
+        <a [href]="'tel:' + a.phone">{{ a.phone }}</a>
+      </p>
+    </article>
+  </div>
+</section>

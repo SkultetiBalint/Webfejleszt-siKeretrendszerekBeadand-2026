@@ -1,0 +1,236 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "fullName": "Skultéti Bálint",
+      "email": "balint.skulteti@example.com",
+      "phone": "+36301234567",
+      "role": "client",
+      "createdAt": "2026-01-12T09:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "fullName": "Kovács Anna",
+      "email": "anna.kovacs@example.com",
+      "phone": "+36209876543",
+      "role": "client",
+      "createdAt": "2026-02-04T11:30:00.000Z"
+    },
+    {
+      "id": 3,
+      "fullName": "Nagy Eszter",
+      "email": "eszter.nagy@example.com",
+      "phone": "+36702223344",
+      "role": "client",
+      "createdAt": "2026-02-21T14:10:00.000Z"
+    },
+    {
+      "id": 4,
+      "fullName": "Tóth Réka",
+      "email": "reka.toth@nailtime.hu",
+      "phone": "+36307778899",
+      "role": "admin",
+      "createdAt": "2025-11-30T08:00:00.000Z"
+    }
+  ],
+  "nailArtists": [
+    {
+      "id": 1,
+      "fullName": "Tóth Réka",
+      "email": "reka.toth@nailtime.hu",
+      "phone": "+36307778899",
+      "bio": "10 éves szakmai tapasztalat, gél lakk és építés specialista.",
+      "workingHours": "H-P 9:00-18:00",
+      "photoUrl": "https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": 2,
+      "fullName": "Horváth Lilla",
+      "email": "lilla.horvath@nailtime.hu",
+      "phone": "+36205556677",
+      "bio": "Művészi körömdíszítés, 3D effektek és nail art.",
+      "workingHours": "K-Szo 10:00-19:00",
+      "photoUrl": "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=400&q=80"
+    }
+  ],
+  "services": [
+    {
+      "id": 1,
+      "name": "Gél lakk",
+      "description": "Klasszikus gél lakk felvitel, alaposan ápolt körmökkel.",
+      "durationMinutes": 75,
+      "price": 7500,
+      "isActive": true,
+      "artistId": 1
+    },
+    {
+      "id": 2,
+      "name": "Erősített gél lakk",
+      "description": "Gél lakk extra erősítő réteggel, hosszabb tartással.",
+      "durationMinutes": 90,
+      "price": 8500,
+      "isActive": true,
+      "artistId": 1
+    },
+    {
+      "id": 3,
+      "name": "Műköröm építés",
+      "description": "Teljes műköröm építés porcelánból vagy zselével.",
+      "durationMinutes": 120,
+      "price": 11500,
+      "isActive": true,
+      "artistId": 1
+    },
+    {
+      "id": 4,
+      "name": "Töltés",
+      "description": "Meglévő műköröm utántöltése és formázása.",
+      "durationMinutes": 100,
+      "price": 9500,
+      "isActive": true,
+      "artistId": 1
+    },
+    {
+      "id": 5,
+      "name": "Díszítés",
+      "description": "Egyedi nail art díszítés, kövek, matricák, festés.",
+      "durationMinutes": 20,
+      "price": 2000,
+      "isActive": true,
+      "artistId": 2
+    },
+    {
+      "id": 6,
+      "name": "Körömjavítás",
+      "description": "Egy-két letört köröm gyors javítása.",
+      "durationMinutes": 15,
+      "price": 1500,
+      "isActive": true,
+      "artistId": 1
+    },
+    {
+      "id": 7,
+      "name": "3D nail art",
+      "description": "Művészi 3D díszítés, prémium minta.",
+      "durationMinutes": 60,
+      "price": 6500,
+      "isActive": false,
+      "artistId": 2
+    },
+    {
+      "name": "_TEST_",
+      "description": "test",
+      "durationMinutes": 15,
+      "price": 1,
+      "isActive": false,
+      "artistId": 1,
+      "id": 8
+    }
+  ],
+  "timeSlots": [
+    {
+      "id": 1,
+      "start": "2026-04-28T09:00:00.000Z",
+      "end": "2026-04-28T10:30:00.000Z",
+      "isAvailable": true,
+      "serviceId": null,
+      "appointmentId": null
+    },
+    {
+      "id": 2,
+      "start": "2026-04-28T11:00:00.000Z",
+      "end": "2026-04-28T12:30:00.000Z",
+      "isAvailable": true,
+      "serviceId": null,
+      "appointmentId": null
+    },
+    {
+      "id": 3,
+      "start": "2026-04-29T13:00:00.000Z",
+      "end": "2026-04-29T15:00:00.000Z",
+      "isAvailable": false,
+      "serviceId": 3,
+      "appointmentId": 1
+    },
+    {
+      "id": 4,
+      "start": "2026-04-30T09:30:00.000Z",
+      "end": "2026-04-30T11:00:00.000Z",
+      "isAvailable": true,
+      "serviceId": null,
+      "appointmentId": null
+    },
+    {
+      "id": 5,
+      "start": "2026-05-02T14:00:00.000Z",
+      "end": "2026-05-02T15:30:00.000Z",
+      "isAvailable": true,
+      "serviceId": null,
+      "appointmentId": null
+    },
+    {
+      "id": 6,
+      "start": "2026-05-04T10:00:00.000Z",
+      "end": "2026-05-04T11:15:00.000Z",
+      "isAvailable": false,
+      "serviceId": 1,
+      "appointmentId": 2
+    },
+    {
+      "id": 7,
+      "start": "2026-05-05T16:00:00.000Z",
+      "end": "2026-05-05T17:00:00.000Z",
+      "isAvailable": true,
+      "serviceId": null,
+      "appointmentId": null
+    }
+  ],
+  "appointments": [
+    {
+      "id": 1,
+      "userId": 1,
+      "serviceId": 3,
+      "timeSlotId": 3,
+      "appointmentDate": "2026-04-29T13:00:00.000Z",
+      "status": "confirmed",
+      "note": "Kérem rózsaszín alapszínt.",
+      "createdAt": "2026-04-10T08:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "serviceId": 1,
+      "timeSlotId": 6,
+      "appointmentDate": "2026-05-04T10:00:00.000Z",
+      "status": "pending",
+      "note": "Először járok, kérek ajánlást színhez.",
+      "createdAt": "2026-04-22T17:42:00.000Z"
+    }
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "userId": 1,
+      "serviceId": 2,
+      "rating": 5,
+      "comment": "Csodás munka, hosszan tartott, ajánlom!",
+      "createdAt": "2026-03-20T10:30:00.000Z"
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "serviceId": 3,
+      "rating": 4,
+      "comment": "Szép formák, picit hosszabbra sikerült mint vártam.",
+      "createdAt": "2026-04-02T16:15:00.000Z"
+    },
+    {
+      "id": 3,
+      "userId": 3,
+      "serviceId": 5,
+      "rating": 5,
+      "comment": "Egyedi 3D díszítés, mindenki tőlem kérdezi hol csináltattam!",
+      "createdAt": "2026-04-15T19:00:00.000Z"
+    }
+  ]
+}

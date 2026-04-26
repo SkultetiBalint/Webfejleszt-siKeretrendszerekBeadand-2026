@@ -9,13 +9,23 @@
         </a>
       </li>
       <li>
-        <a routerLink="/services" routerLinkActive="active">Szolgáltatások</a>
+        <a routerLink="/services" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          Szolgáltatások
+        </a>
+      </li>
+      <li>
+        <a routerLink="/artists" routerLinkActive="active">Műkörmösök</a>
       </li>
       <li>
         <a routerLink="/booking" routerLinkActive="active">Foglalás</a>
       </li>
       <li>
         <a routerLink="/profile" routerLinkActive="active">Profil</a>
+      </li>
+      <li>
+        <a routerLink="/services/admin" routerLinkActive="active" class="nav-list__admin">
+          Admin
+        </a>
       </li>
     </ul>
   </nav>

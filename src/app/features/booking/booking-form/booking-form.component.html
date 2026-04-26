@@ -1,39 +1,71 @@
 <section class="card booking-form" aria-labelledby="booking-title">
   <h2 id="booking-title">Új időpont foglalása</h2>
 
-  <form (ngSubmit)="submitForm()" #bookingNgForm="ngForm">
+  <app-loading-spinner *ngIf="servicesLoading()" label="Szolgáltatások betöltése..."></app-loading-spinner>
+
+  <form *ngIf="!servicesLoading()" [formGroup]="form" (ngSubmit)="submit()" novalidate>
     <div class="form-group">
-      <label for="name">Név</label>
-      <input id="name" name="name" type="text" [(ngModel)]="name" required />
+      <label for="name">Név *</label>
+      <input id="name" type="text" formControlName="name" autocomplete="name" />
+      <small *ngIf="hasError('name', 'required')" class="field-error">A név megadása kötelező.</small>
+      <small *ngIf="hasError('name', 'minlength')" class="field-error">Legalább 3 karakter.</small>
     </div>
 
     <div class="form-group">
-      <label for="email">Email</label>
-      <input id="email" name="email" type="email" [(ngModel)]="email" required />
+      <label for="email">Email *</label>
+      <input id="email" type="email" formControlName="email" autocomplete="email" />
+      <small *ngIf="hasError('email', 'required')" class="field-error">Az email megadása kötelező.</small>
+      <small *ngIf="hasError('email', 'email')" class="field-error">Érvényes email címet adj meg.</small>
     </div>
 
     <div class="form-group">
-      <label for="service">Szolgáltatás</label>
-      <select id="service" name="service" [(ngModel)]="service" required>
-        <option value="">Válassz</option>
-        <option value="Gél lakk">Gél lakk</option>
-        <option value="Erősített gél lakk">Erősített gél lakk</option>
-        <option value="Műköröm építés">Műköröm építés</option>
+      <label for="phone">Telefonszám *</label>
+      <input id="phone" type="tel" formControlName="phone" autocomplete="tel" placeholder="+36 30 123 4567" />
+      <small *ngIf="hasError('phone', 'required')" class="field-error">A telefonszám megadása kötelező.</small>
+      <small *ngIf="hasError('phone', 'pattern')" class="field-error">Érvényes telefonszámot adj meg.</small>
+    </div>
+
+    <div class="form-group">
+      <label for="serviceId">Szolgáltatás *</label>
+      <select id="serviceId" formControlName="serviceId">
+        <option [value]="0">Válassz szolgáltatást...</option>
+        <option *ngFor="let s of services()" [value]="s.id">
+          {{ s.name }} — {{ s.price }} Ft / {{ s.durationMinutes }} perc
+        </option>
       </select>
+      <small *ngIf="hasError('serviceId', 'required') || hasError('serviceId', 'min')" class="field-error">
+        Válassz szolgáltatást.
+      </small>
+    </div>
+
+    <div *ngIf="selectedService() as svc" class="form-summary" role="status" aria-live="polite">
+      <strong>{{ svc.name }}</strong> — {{ svc.description }}
+      <br />
+      Ár: <strong>{{ svc.price }} Ft</strong> · Időtartam: <strong>{{ svc.durationMinutes }} perc</strong>
     </div>
 
     <div class="form-group">
-      <label for="date">Dátum és idő</label>
-      <input id="date" name="date" type="datetime-local" [(ngModel)]="date" required />
+      <label for="appointmentDate">Dátum és idő *</label>
+      <input id="appointmentDate" type="datetime-local" formControlName="appointmentDate" />
+      <small *ngIf="hasError('appointmentDate', 'required')" class="field-error">
+        Válassz időpontot.
+      </small>
+      <small *ngIf="hasError('appointmentDate', 'pastDate')" class="field-error">
+        Az időpont csak jövőbeli lehet.
+      </small>
     </div>
 
     <div class="form-group">
       <label for="note">Megjegyzés</label>
-      <textarea id="note" name="note" [(ngModel)]="note" rows="4"></textarea>
+      <textarea id="note" rows="4" formControlName="note" placeholder="Bármilyen kérés vagy megjegyzés..."></textarea>
     </div>
 
-    <button type="submit" class="button button-primary">Foglalás elküldése</button>
-
-    <p class="success" aria-live="polite">{{ successMessage }}</p>
+    <button
+      type="submit"
+      class="button button-primary"
+      [disabled]="submitting() || form.invalid"
+    >
+      {{ submitting() ? 'Küldés...' : 'Foglalás elküldése' }}
+    </button>
   </form>
 </section>

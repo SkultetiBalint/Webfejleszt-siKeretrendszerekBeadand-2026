@@ -107,6 +107,28 @@ button {
   background: var(--color-primary-dark);
 }
 
+.button-danger {
+  background: #ef4444;
+  color: white;
+}
+
+.button-danger:hover {
+  background: #dc2626;
+}
+
+.button[disabled],
+button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button--small {
+  min-width: 36px;
+  min-height: 36px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.875rem;
+}
+
 button:focus-visible,
 .button:focus-visible,
 a:focus-visible,

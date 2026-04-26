@@ -1,19 +1,87 @@
 <section class="container section">
   <header class="page-header">
     <h1>Profil / Foglalásaim</h1>
-    <p>Itt láthatod a közelgő időpontjaidat.</p>
+    <p>Itt láthatod a közelgő és a múltbeli időpontjaidat.</p>
   </header>
 
-  <section aria-labelledby="appointments-title">
-    <h2 id="appointments-title">Közelgő foglalások</h2>
+  <app-loading-spinner *ngIf="loading()" label="Foglalások betöltése..."></app-loading-spinner>
 
-    <div class="appointments-grid">
-      <app-appointment-card
-        *ngFor="let appointment of appointments"
-        [service]="appointment.service"
-        [date]="appointment.date"
-        [status]="appointment.status">
-      </app-appointment-card>
-    </div>
-  </section>
+  <p *ngIf="error()" class="error-msg" role="alert">{{ error() }}</p>
+
+  <ng-container *ngIf="!loading() && !error()">
+    <section aria-labelledby="upcoming-title" class="profile-section">
+      <h2 id="upcoming-title">Közelgő foglalások</h2>
+
+      <app-empty-state
+        *ngIf="myUpcoming().length === 0"
+        icon="📅"
+        title="Nincs közelgő foglalásod"
+        message="Foglalj egy időpontot a Foglalás oldalon!"
+      ></app-empty-state>
+
+      <ul class="appointments-list" *ngIf="myUpcoming().length > 0">
+        <li *ngFor="let a of myUpcoming()" class="card appointment">
+          <ng-container *ngIf="editingId() !== a.id; else editTpl">
+            <div class="appointment__info">
+              <h3>{{ serviceName(a.serviceId) }}</h3>
+              <p><strong>Időpont:</strong> {{ a.appointmentDate | date:'yyyy. MM. dd. HH:mm' }}</p>
+              <p><strong>Státusz:</strong>
+                <span class="status status--{{ a.status }}">{{ a.status }}</span>
+              </p>
+              <p *ngIf="a.note" class="appointment__note">"{{ a.note }}"</p>
+            </div>
+            <div class="appointment__actions">
+              <button type="button" class="button button--small" (click)="startEdit(a)">
+                Szerkesztés
+              </button>
+              <button type="button" class="button button--small button-danger" (click)="cancel(a)">
+                Törlés
+              </button>
+            </div>
+          </ng-container>
+
+          <ng-template #editTpl>
+            <div class="appointment__edit">
+              <h3>Foglalás szerkesztése</h3>
+              <label>
+                Új időpont:
+                <input type="datetime-local"
+                  [value]="editDate()"
+                  (input)="onDateChange($any($event.target).value)" />
+              </label>
+              <label>
+                Megjegyzés:
+                <textarea rows="3"
+                  [value]="editNote()"
+                  (input)="onNoteChange($any($event.target).value)"></textarea>
+              </label>
+              <div class="appointment__actions">
+                <button type="button" class="button button-primary button--small" (click)="saveEdit(a)">
+                  Mentés
+                </button>
+                <button type="button" class="button button--small" (click)="cancelEdit()">
+                  Mégse
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="past-title" class="profile-section" *ngIf="myPast().length > 0">
+      <h2 id="past-title">Korábbi foglalások</h2>
+      <ul class="appointments-list">
+        <li *ngFor="let a of myPast()" class="card appointment appointment--past">
+          <div class="appointment__info">
+            <h3>{{ serviceName(a.serviceId) }}</h3>
+            <p><strong>Időpont:</strong> {{ a.appointmentDate | date:'yyyy. MM. dd. HH:mm' }}</p>
+            <p><strong>Státusz:</strong>
+              <span class="status status--{{ a.status }}">{{ a.status }}</span>
+            </p>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </ng-container>
 </section>

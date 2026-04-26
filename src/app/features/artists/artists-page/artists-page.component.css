@@ -1,0 +1,42 @@
+.artists-grid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .artists-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.artist-card {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+}
+
+.artist-card__photo {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 0.5rem;
+}
+
+.artist-card__bio {
+  color: #555;
+  font-style: italic;
+}
+
+.artist-card__contact {
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+}
+.artist-card__contact a {
+  color: #d946ef;
+  text-decoration: none;
+}
+.artist-card__contact a:hover { text-decoration: underline; }

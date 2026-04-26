@@ -1,14 +1,48 @@
 import { Routes } from '@angular/router';
-import { HomePageComponent } from './features/home/home-page/home-page.component';
-import { ServicesPageComponent } from './features/services/services-page/services-page.component';
-import { BookingPageComponent } from './features/booking/booking-page/booking-page.component';
-import { ProfilePageComponent } from './features/profile/profile-page/profile-page.component';
-import { NotFoundPageComponent } from './features/not-found/not-found-page/not-found-page.component';
 
 export const routes: Routes = [
-  { path: '', component: HomePageComponent },
-  { path: 'services', component: ServicesPageComponent },
-  { path: 'booking', component: BookingPageComponent },
-  { path: 'profile', component: ProfilePageComponent },
-  { path: '**', component: NotFoundPageComponent }
+  {
+    path: '',
+    loadComponent: () =>
+      import('./features/home/home-page/home-page.component').then(m => m.HomePageComponent)
+  },
+  {
+    path: 'services',
+    loadComponent: () =>
+      import('./features/services/services-page/services-page.component').then(m => m.ServicesPageComponent)
+  },
+  {
+    path: 'services/admin',
+    loadComponent: () =>
+      import('./features/services/services-admin-page/services-admin-page.component').then(
+        m => m.ServicesAdminPageComponent
+      )
+  },
+  {
+    path: 'services/:id',
+    loadComponent: () =>
+      import('./features/services/service-detail-page/service-detail-page.component').then(
+        m => m.ServiceDetailPageComponent
+      )
+  },
+  {
+    path: 'booking',
+    loadComponent: () =>
+      import('./features/booking/booking-page/booking-page.component').then(m => m.BookingPageComponent)
+  },
+  {
+    path: 'profile',
+    loadComponent: () =>
+      import('./features/profile/profile-page/profile-page.component').then(m => m.ProfilePageComponent)
+  },
+  {
+    path: 'artists',
+    loadComponent: () =>
+      import('./features/artists/artists-page/artists-page.component').then(m => m.ArtistsPageComponent)
+  },
+  {
+    path: '**',
+    loadComponent: () =>
+      import('./features/not-found/not-found-page/not-found-page.component').then(m => m.NotFoundPageComponent)
+  }
 ];

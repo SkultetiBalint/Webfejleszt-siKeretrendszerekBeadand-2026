@@ -4,12 +4,100 @@
     <p>Válaszd ki a neked legmegfelelőbb kezelést.</p>
   </header>
 
-  <div class="services-grid">
-    <app-service-card
-      *ngFor="let service of services"
-      [title]="service.title"
-      [duration]="service.duration"
-      [price]="service.price"
-    ></app-service-card>
+  <div class="toolbar" role="region" aria-label="Szűrési és rendezési eszközök">
+    <label class="toolbar__search">
+      <span class="visually-hidden">Keresés</span>
+      <input
+        type="search"
+        placeholder="Keresés név vagy leírás alapján..."
+        [value]="search()"
+        (input)="onSearchInput($any($event.target).value)"
+        aria-label="Keresés a szolgáltatások között"
+      />
+    </label>
+
+    <div class="toolbar__filters">
+      <label class="toolbar__check">
+        <input
+          type="checkbox"
+          [checked]="onlyActive()"
+          (change)="toggleOnlyActive()"
+        />
+        Csak aktív
+      </label>
+
+      <span class="toolbar__sort-label">Rendezés:</span>
+      <button
+        type="button"
+        class="button button--small"
+        [class.button-primary]="sortKey() === 'name'"
+        (click)="onSortChange('name')"
+      >
+        Név
+        <span *ngIf="sortKey() === 'name'">{{ sortOrder() === 'asc' ? '▲' : '▼' }}</span>
+      </button>
+      <button
+        type="button"
+        class="button button--small"
+        [class.button-primary]="sortKey() === 'price'"
+        (click)="onSortChange('price')"
+      >
+        Ár
+        <span *ngIf="sortKey() === 'price'">{{ sortOrder() === 'asc' ? '▲' : '▼' }}</span>
+      </button>
+      <button
+        type="button"
+        class="button button--small"
+        [class.button-primary]="sortKey() === 'durationMinutes'"
+        (click)="onSortChange('durationMinutes')"
+      >
+        Időtartam
+        <span *ngIf="sortKey() === 'durationMinutes'">{{ sortOrder() === 'asc' ? '▲' : '▼' }}</span>
+      </button>
+    </div>
   </div>
+
+  <app-loading-spinner *ngIf="loading()" label="Szolgáltatások betöltése..."></app-loading-spinner>
+
+  <p *ngIf="error()" class="error-msg" role="alert">{{ error() }}</p>
+
+  <ng-container *ngIf="!loading() && !error()">
+    <app-empty-state
+      *ngIf="filteredServices().length === 0"
+      icon="🔍"
+      title="Nincs találat"
+      message="Próbáld másik keresőkifejezéssel, vagy kapcsold ki a 'Csak aktív' szűrőt."
+    ></app-empty-state>
+
+    <div *ngIf="filteredServices().length > 0" class="services-grid">
+      <app-service-card
+        *ngFor="let service of pagedServices()"
+        [id]="service.id"
+        [title]="service.name"
+        [duration]="service.durationMinutes + ' perc'"
+        [price]="service.price + ' Ft'"
+        [description]="service.description"
+      ></app-service-card>
+    </div>
+
+    <nav *ngIf="totalPages() > 1" class="pagination" aria-label="Oldalak">
+      <button
+        type="button"
+        class="button button--small"
+        [disabled]="page() === 1"
+        (click)="goToPage(page() - 1)"
+      >‹ Előző</button>
+
+      <span class="pagination__info">
+        Oldal {{ page() }} / {{ totalPages() }}
+      </span>
+
+      <button
+        type="button"
+        class="button button--small"
+        [disabled]="page() === totalPages()"
+        (click)="goToPage(page() + 1)"
+      >Következő ›</button>
+    </nav>
+  </ng-container>
 </section>

@@ -1,0 +1,58 @@
+<section class="container section">
+  <a routerLink="/services" class="back-link">← Vissza a szolgáltatásokhoz</a>
+
+  <app-loading-spinner *ngIf="loading()" label="Részletek betöltése..."></app-loading-spinner>
+
+  <app-empty-state
+    *ngIf="!loading() && notFound()"
+    icon="❓"
+    title="Szolgáltatás nem található"
+    message="Lehet, hogy törölve lett vagy hibás link."
+  ></app-empty-state>
+
+  <article *ngIf="!loading() && !notFound() && service() as s" class="card detail">
+    <header class="detail__header">
+      <h1>{{ s.name }}</h1>
+      <span class="badge" [class.badge--inactive]="!s.isActive">
+        {{ s.isActive ? 'Aktív' : 'Inaktív' }}
+      </span>
+    </header>
+
+    <p class="detail__desc">{{ s.description }}</p>
+
+    <dl class="detail__meta">
+      <dt>Időtartam:</dt><dd>{{ s.durationMinutes }} perc</dd>
+      <dt>Ár:</dt><dd>{{ s.price }} Ft</dd>
+      <dt *ngIf="artist() as a">Műkörmös:</dt>
+      <dd *ngIf="artist() as a">{{ a.fullName }} — {{ a.workingHours }}</dd>
+    </dl>
+
+    <a class="button button-primary" [routerLink]="['/booking']" [queryParams]="{ serviceId: s.id }">
+      Foglalás erre a szolgáltatásra
+    </a>
+
+    <section class="detail__reviews" aria-labelledby="reviews-title">
+      <h2 id="reviews-title">Vélemények ({{ reviews().length }})</h2>
+      <p *ngIf="reviews().length > 0" class="detail__avg">
+        Átlagos értékelés: <strong>{{ avgRating() }}</strong> / 5
+      </p>
+
+      <app-empty-state
+        *ngIf="reviews().length === 0"
+        icon="💬"
+        title="Még nincs értékelés"
+        message="Légy te az első, aki véleményt ír a szolgáltatásról!"
+      ></app-empty-state>
+
+      <ul class="review-list">
+        <li *ngFor="let r of reviews()" class="review">
+          <div class="review__rating" [attr.aria-label]="r.rating + '/5 csillag'">
+            <span *ngFor="let n of [1,2,3,4,5]" [class.review__star--on]="n <= r.rating">★</span>
+          </div>
+          <p class="review__comment">{{ r.comment }}</p>
+          <time class="review__date">{{ r.createdAt | date:'yyyy. MM. dd.' }}</time>
+        </li>
+      </ul>
+    </section>
+  </article>
+</section>

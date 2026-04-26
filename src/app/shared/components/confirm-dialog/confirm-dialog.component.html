@@ -1,0 +1,26 @@
+<div
+  *ngIf="active() as req"
+  class="confirm-overlay"
+  role="dialog"
+  aria-modal="true"
+  [attr.aria-labelledby]="'confirm-title'"
+>
+  <div class="confirm-modal" [class.confirm-modal--destructive]="req.destructive">
+    <h2 id="confirm-title" class="confirm-modal__title">{{ req.title }}</h2>
+    <p class="confirm-modal__msg">{{ req.message }}</p>
+    <div class="confirm-modal__actions">
+      <button type="button" class="button" (click)="cancel()">
+        {{ req.cancelText || 'Mégse' }}
+      </button>
+      <button
+        type="button"
+        class="button"
+        [class.button-primary]="!req.destructive"
+        [class.button-danger]="req.destructive"
+        (click)="confirm()"
+      >
+        {{ req.confirmText || 'Megerősítem' }}
+      </button>
+    </div>
+  </div>
+</div>
