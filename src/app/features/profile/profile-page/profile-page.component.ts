@@ -7,10 +7,9 @@ import { AppointmentApiService } from '../../../core/services/appointment-api.se
 import { ServiceApiService } from '../../../core/services/service-api.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { ConfirmService } from '../../../core/services/confirm.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
 import { EmptyStateComponent } from '../../../shared/components/empty-state/empty-state.component';
-
-const DEMO_USER_ID = 1;
 
 @Component({
   selector: 'app-profile-page',
@@ -29,7 +28,9 @@ export class ProfilePageComponent implements OnInit {
   private readonly serviceApi = inject(ServiceApiService);
   private readonly toast = inject(ToastService);
   private readonly confirm = inject(ConfirmService);
+  private readonly auth = inject(AuthService);
 
+  readonly currentUser = this.auth.currentUser;
   readonly loading = this.appointmentApi.loading;
   readonly error = this.appointmentApi.error;
 
@@ -37,15 +38,24 @@ export class ProfilePageComponent implements OnInit {
   readonly editNote = signal<string>('');
   readonly editDate = signal<string>('');
 
-  readonly myUpcoming = computed(() =>
-    this.appointmentApi.upcoming().filter(a => a.userId === DEMO_USER_ID)
-  );
-  readonly myPast = computed(() =>
-    this.appointmentApi.past().filter(a => a.userId === DEMO_USER_ID)
-  );
+  readonly myUpcoming = computed(() => {
+    const uid = this.currentUser()?.id;
+    return uid == null
+      ? []
+      : this.appointmentApi.upcoming().filter(a => a.userId === uid);
+  });
+  readonly myPast = computed(() => {
+    const uid = this.currentUser()?.id;
+    return uid == null
+      ? []
+      : this.appointmentApi.past().filter(a => a.userId === uid);
+  });
 
   ngOnInit(): void {
-    this.appointmentApi.listByUser(DEMO_USER_ID).subscribe();
+    const uid = this.currentUser()?.id;
+    if (uid != null) {
+      this.appointmentApi.listByUser(uid).subscribe();
+    }
     if (this.serviceApi.services().length === 0) {
       this.serviceApi.list().subscribe();
     }

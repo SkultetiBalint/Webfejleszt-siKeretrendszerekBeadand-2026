@@ -16,17 +16,39 @@
       <li>
         <a routerLink="/artists" routerLinkActive="active">Műkörmösök</a>
       </li>
-      <li>
-        <a routerLink="/booking" routerLinkActive="active">Foglalás</a>
-      </li>
-      <li>
-        <a routerLink="/profile" routerLinkActive="active">Profil</a>
-      </li>
-      <li>
-        <a routerLink="/services/admin" routerLinkActive="active" class="nav-list__admin">
-          Admin
-        </a>
-      </li>
+
+      <ng-container *ngIf="isLoggedIn(); else guestLinks">
+        <li>
+          <a routerLink="/booking" routerLinkActive="active">Foglalás</a>
+        </li>
+        <li>
+          <a routerLink="/profile" routerLinkActive="active" data-cy="nav-profile">Profil</a>
+        </li>
+        <li *ngIf="isAdmin()">
+          <a routerLink="/services/admin" routerLinkActive="active" class="nav-list__admin">
+            Admin
+          </a>
+        </li>
+        <li class="nav-list__user" data-cy="nav-user">
+          <span class="nav-list__user-name">
+            {{ currentUser()?.fullName }}
+          </span>
+          <button type="button" class="button button--small" (click)="logout()" data-cy="logout-btn">
+            Kijelentkezés
+          </button>
+        </li>
+      </ng-container>
+
+      <ng-template #guestLinks>
+        <li>
+          <a routerLink="/login" routerLinkActive="active" data-cy="nav-login">Bejelentkezés</a>
+        </li>
+        <li>
+          <a routerLink="/register" routerLinkActive="active" class="button button-primary button--small" data-cy="nav-register">
+            Regisztráció
+          </a>
+        </li>
+      </ng-template>
     </ul>
   </nav>
 </header>

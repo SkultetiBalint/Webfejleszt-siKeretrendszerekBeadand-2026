@@ -54,6 +54,23 @@
   outline-offset: 2px;
 }
 
+.nav-list__user {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-left: auto;
+}
+.nav-list__user-name {
+  font-weight: 600;
+  color: var(--color-text);
+  padding: 0 var(--space-2);
+}
+.button--small {
+  font-size: 0.875rem;
+  padding: 0.4rem 0.9rem;
+  min-height: 36px;
+}
+
 @media (min-width: 768px) {
   .navbar {
     flex-direction: row;

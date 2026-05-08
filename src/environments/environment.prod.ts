@@ -1,4 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:3000'
+  // Cseréld le a saját Render backend URL-jére deploy után, pl.:
+  // apiUrl: 'https://nailtime-api.onrender.com'
+  apiUrl: 'https://nailtime-api.onrender.com'
 };

@@ -4,6 +4,7 @@
       "id": 1,
       "fullName": "Skultéti Bálint",
       "email": "balint.skulteti@example.com",
+      "password": "$2a$10$9JhBEqJWeOHjdHy9Ch7I7eLn.iKfhqZ9YHBAKXIZylT4sDWHO1u9m",
       "phone": "+36301234567",
       "role": "client",
       "createdAt": "2026-01-12T09:00:00.000Z"
@@ -12,6 +13,7 @@
       "id": 2,
       "fullName": "Kovács Anna",
       "email": "anna.kovacs@example.com",
+      "password": "$2a$10$9JhBEqJWeOHjdHy9Ch7I7eLn.iKfhqZ9YHBAKXIZylT4sDWHO1u9m",
       "phone": "+36209876543",
       "role": "client",
       "createdAt": "2026-02-04T11:30:00.000Z"
@@ -20,6 +22,7 @@
       "id": 3,
       "fullName": "Nagy Eszter",
       "email": "eszter.nagy@example.com",
+      "password": "$2a$10$9JhBEqJWeOHjdHy9Ch7I7eLn.iKfhqZ9YHBAKXIZylT4sDWHO1u9m",
       "phone": "+36702223344",
       "role": "client",
       "createdAt": "2026-02-21T14:10:00.000Z"
@@ -28,9 +31,18 @@
       "id": 4,
       "fullName": "Tóth Réka",
       "email": "reka.toth@nailtime.hu",
+      "password": "$2a$10$51rzHpIToB.1FymZlfE3AOMgkwZDXZ/d1hhenbUZqQjWFlREOLjc6",
       "phone": "+36307778899",
       "role": "admin",
       "createdAt": "2025-11-30T08:00:00.000Z"
+    },
+    {
+      "email": "new_e2e@test.hu",
+      "password": "$2a$10$BJDsXW5plh5ZBXVZWJDwjecrDrDOwq4Kr7HNx95TNyWvhR25E6Yzi",
+      "fullName": "New E2E",
+      "phone": "+36301111111",
+      "role": "client",
+      "id": 5
     }
   ],
   "nailArtists": [
@@ -118,12 +130,7 @@
       "artistId": 2
     },
     {
-      "name": "_TEST_",
-      "description": "test",
-      "durationMinutes": 15,
-      "price": 1,
-      "isActive": false,
-      "artistId": 1,
+      "name": "X",
       "id": 8
     }
   ],

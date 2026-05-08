@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceApiService } from '../../../core/services/service-api.service';
 import { AppointmentApiService } from '../../../core/services/appointment-api.service';
 import { ToastService } from '../../../core/services/toast.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
 import { Appointment } from '../../../core/models/models';
 
@@ -26,9 +27,11 @@ export class BookingFormComponent implements OnInit {
   private readonly serviceApi = inject(ServiceApiService);
   private readonly appointmentApi = inject(AppointmentApiService);
   private readonly toast = inject(ToastService);
+  private readonly auth = inject(AuthService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 
+  readonly currentUser = this.auth.currentUser;
   readonly submitting = signal<boolean>(false);
   readonly servicesLoading = this.serviceApi.loading;
   readonly services = this.serviceApi.activeServices;
@@ -55,6 +58,15 @@ export class BookingFormComponent implements OnInit {
     if (preset) {
       this.form.patchValue({ serviceId: preset });
     }
+    // A bejelentkezett felhasználó adatait előtöltjük (de szerkeszthető marad)
+    const user = this.currentUser();
+    if (user) {
+      this.form.patchValue({
+        name: user.fullName,
+        email: user.email,
+        phone: user.phone
+      });
+    }
   }
 
   hasError(name: string, code: string): boolean {
@@ -77,8 +89,16 @@ export class BookingFormComponent implements OnInit {
     const v = this.form.getRawValue();
     this.submitting.set(true);
 
+    const userId = this.currentUser()?.id;
+    if (userId == null) {
+      this.toast.error('Be kell jelentkezned a foglaláshoz.');
+      this.submitting.set(false);
+      this.router.navigate(['/login']);
+      return;
+    }
+
     const payload: Omit<Appointment, 'id'> = {
-      userId: 1,
+      userId,
       serviceId: Number(v.serviceId),
       appointmentDate: new Date(v.appointmentDate).toISOString(),
       status: 'pending',

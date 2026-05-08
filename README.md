@@ -15,22 +15,43 @@ git clone <repo-url>
 cd <projekt-mappa>
 npm install
 
-# Frontend + json-server backend egyszerre (ajánlott):
+# Frontend + json-server-auth backend egyszerre (ajánlott):
 npm run dev
 
 # Vagy két külön terminálban:
-npm run server   # http://localhost:3000  (json-server, db.json)
+npm run server   # http://localhost:3000  (json-server-auth + db.json)
 npm start        # http://localhost:4200  (Angular dev server)
 ```
 
 A frontend a `src/environments/environment.ts` fájl `apiUrl` értékét használja
 (alapértelmezetten `http://localhost:3000`).
 
+### Tesztelés
+
+```bash
+npm test                 # Karma + Jasmine unit tesztek (figyelő mód)
+npm run test:ci          # ugyanez headless Chrome-mal, egyszer fut le
+npm run cy:open          # Cypress E2E (GUI mód, dev servernek futnia kell)
+npm run cy:run           # Cypress E2E (headless)
+```
+
+### Demo bejelentkezések
+
+A `db.json` seed user-jeinek alapértelmezett jelszavai:
+
+- **Client** — `balint.skulteti@example.com` / `Password123!`
+- **Admin** — `reka.toth@nailtime.hu` / `Admin123!`
+
+Vagy regisztrálj új fiókot a `/register` oldalon.
+
 ---
 
 ## 🌐 Publikus URL
 
-> _[Írd ide a deployolt alkalmazás URL-jét, pl. https://my-app.web.app]_
+- **Frontend (Vercel):** _[deploy után ide]_
+- **Backend (Render, json-server-auth):** _[deploy után ide]_
+
+A részletes deploy lépések: [`docs/MILESTONE3.md`](docs/MILESTONE3.md#35-deploy-és-üzemeltetés-3-pont).
 
 ---
 
@@ -59,7 +80,27 @@ A frontend a `src/environments/environment.ts` fájl `apiUrl` értékét haszná
 |---|----------|----------|---------|
 | 1 | Specifikáció, UI és megjelenés | 2026.03.29. 23:59 | ✅ |
 | 2 | Backend és adatok | 2026.04.26. 23:59 | ✅ |
-| 3 | Biztonság és tesztelés | 2026.05.10. 23:59 | ⬜ |
+| 3 | Biztonság és tesztelés | 2026.05.10. 23:59 | ✅ |
+
+### 3. mérföldkő — Biztonság és tesztelés
+
+A részletes leírást ld.: [`docs/MILESTONE3.md`](docs/MILESTONE3.md).
+
+Röviden:
+
+- **Auth:** json-server-auth (bcrypt + JWT). Reaktív, signal-alapú
+  `AuthService` localStorage perzisztenciával. Login / register / logout,
+  auth-függő navbar.
+- **Védelem:** `authGuard` (`/booking`, `/profile`) és `adminGuard`
+  (`/services/admin`). HTTP interceptor csatolja a JWT-t. Backend-oldalon
+  per-resource permission a `routes.json`-ban.
+- **Validáció + biztonság:** kliens-oldali reactive form validáció, szerver
+  validáció a json-server-auth-ban, Angular auto-XSS védelem (`{{ }}` escape),
+  bcrypt hash a jelszavakra, `.gitignore` a titkokra.
+- **Tesztelés:** 25+ unit teszt Karma + Jasmine alatt (service-ek, computed
+  state, validátorok, komponensek), egy E2E happy-path teszt Cypressben.
+- **Deploy:** Render (backend) + Vercel (frontend) konfigurációkkal
+  (`render.yaml`, `vercel.json`).
 
 ### 2. mérföldkő — Backend és adatok
 

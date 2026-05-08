@@ -1,0 +1,58 @@
+<section class="container section auth-page">
+  <header class="page-header">
+    <h1>Bejelentkezés</h1>
+    <p>Lépj be a fiókodba a foglalások kezeléséhez.</p>
+  </header>
+
+  <form class="card auth-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div class="form-group">
+      <label for="email">Email cím *</label>
+      <input
+        id="email"
+        type="email"
+        autocomplete="email"
+        formControlName="email"
+        data-cy="email-input"
+      />
+      <small *ngIf="hasError('email','required')" class="field-error">
+        Az email megadása kötelező.
+      </small>
+      <small *ngIf="hasError('email','email')" class="field-error">
+        Érvényes email formátum szükséges.
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Jelszó *</label>
+      <input
+        id="password"
+        type="password"
+        autocomplete="current-password"
+        formControlName="password"
+        data-cy="password-input"
+      />
+      <small *ngIf="hasError('password','required')" class="field-error">
+        A jelszó kötelező.
+      </small>
+      <small *ngIf="hasError('password','minlength')" class="field-error">
+        Legalább 6 karakter.
+      </small>
+    </div>
+
+    <div class="form-actions">
+      <button
+        type="submit"
+        class="button button-primary"
+        [disabled]="submitting()"
+        data-cy="login-submit"
+      >
+        {{ submitting() ? 'Bejelentkezés...' : 'Bejelentkezés' }}
+      </button>
+    </div>
+
+    <p class="auth-form__hint">
+      Még nincs fiókod?
+      <a routerLink="/register">Regisztrálj itt</a>.
+    </p>
+  </form>
+</section>

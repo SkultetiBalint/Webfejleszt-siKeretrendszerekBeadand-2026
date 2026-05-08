@@ -1,0 +1,21 @@
+# Render.com deploy konfiguráció a json-server-auth backendhez.
+#
+# Lépések:
+#   1. Hozz létre egy Render fiókot (https://render.com), kösd össze a GitHub repóval.
+#   2. Új "Web Service" → válaszd a repót → Render automatikusan beolvassa ezt a fájlt.
+#   3. A backend egy publikus URL-en lesz (pl. https://nailtime-api.onrender.com).
+#   4. A `src/environments/environment.prod.ts` fájlban add meg ugyanezt az URL-t apiUrl-ként.
+#
+# A free tier ~30 másodpercig tart, mire a service "felébred", ha nincs forgalom.
+# Ez a kiértékelés szempontjából elfogadható.
+services:
+  - type: web
+    name: nailtime-api
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: npm install --omit=dev || npm install
+    startCommand: npx json-server-auth --watch db.json --routes routes.json --port $PORT --host 0.0.0.0
+    envVars:
+      - key: NODE_ENV
+        value: production

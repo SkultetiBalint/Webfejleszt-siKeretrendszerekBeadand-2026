@@ -5,6 +5,46 @@ használtam.
 
 ---
 
+## 3. mérföldkő — Biztonság és tesztelés (2026.05.08)
+
+### Eszköz
+- Claude (Anthropic, Opus modell), Cowork mode-ban.
+
+### Felhasznált prompt
+> "A következő feladatunk: 3. mérföldkő — Biztonság és tesztelés (20 pont).
+> [értékelési pontok teljes szövege a SPECIFICATION-ből]"
+
+A tárgyalás során 3 kulcsdöntésre rákérdezett (backend stack, deploy target,
+E2E eszköz), majd a megegyezett kombinációval (json-server-auth + Render +
+Cypress) építette fel a megoldást.
+
+### Mit csinált a modell
+1. **Auth backend:** `json-server-auth` mint dev dependency, `routes.json`
+   per-resource permission kódokkal, demo userek bcrypt-hashelt jelszavakkal.
+2. **Frontend auth réteg:** `AuthService` signal-alapú állapottal +
+   localStorage perzisztencia, `auth.interceptor.ts` JWT-csatolóval,
+   `auth.guard.ts` és `admin.guard.ts` route guardokkal.
+3. **Login + Register oldalak:** reactive formok, jelszó komplexitás,
+   jelszó-megerősítés cross-field validátorral.
+4. **Auth-aware navbar:** vendég/logged-in/admin nézetek, logout gomb.
+5. **Profile + Booking átállítása valós userre:** a DEMO_USER_ID kivéve,
+   helyette `AuthService.currentUser()`. Booking form auto-fill.
+6. **Unit tesztek (25+):** AuthService, ServiceApiService, AppointmentApiService
+   spec-ek HttpTestingControllerrel, plus a komponens spec-ek frissítése (a
+   navbar és app.component most már auth-aware → szükségesek a HTTP providerek).
+7. **Cypress E2E:** `cypress.config.ts`, `cypress/support/e2e.ts`,
+   `cypress/e2e/booking-flow.cy.ts` happy-path teszttel.
+8. **Deploy konfig:** `render.yaml` (backend), `vercel.json` (frontend),
+   `environment.prod.ts` Render URL-re mutató placeholder.
+9. **`docs/MILESTONE3.md`** és **`README.md`** frissítések.
+
+### Manuális ellenőrzés szükséges
+- A Render és Vercel deploy elindítása a felhasználó GitHub fiókjából.
+- `environment.prod.ts` átírása a tényleges Render URL-re.
+- `npm test` lokálisan (Chrome szükséges) — a sandboxban Chrome nincs.
+
+---
+
 ## 2. mérföldkő — Backend és adatok (2026.04.26)
 
 ### Eszköz

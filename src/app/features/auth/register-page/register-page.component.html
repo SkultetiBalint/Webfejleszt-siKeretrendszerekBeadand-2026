@@ -1,0 +1,55 @@
+<section class="container section auth-page">
+  <header class="page-header">
+    <h1>Regisztráció</h1>
+    <p>Hozz létre fiókot, hogy időpontot tudj foglalni.</p>
+  </header>
+
+  <form class="card auth-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div class="form-group">
+      <label for="fullName">Teljes név *</label>
+      <input id="fullName" type="text" autocomplete="name" formControlName="fullName" data-cy="reg-fullname" />
+      <small *ngIf="hasError('fullName','required')" class="field-error">A név kötelező.</small>
+      <small *ngIf="hasError('fullName','minlength')" class="field-error">Legalább 3 karakter.</small>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email cím *</label>
+      <input id="email" type="email" autocomplete="email" formControlName="email" data-cy="reg-email" />
+      <small *ngIf="hasError('email','required')" class="field-error">Email kötelező.</small>
+      <small *ngIf="hasError('email','email')" class="field-error">Érvényes email szükséges.</small>
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Telefonszám *</label>
+      <input id="phone" type="tel" autocomplete="tel" formControlName="phone" data-cy="reg-phone" placeholder="+36..." />
+      <small *ngIf="hasError('phone','required')" class="field-error">Telefon kötelező.</small>
+      <small *ngIf="hasError('phone','pattern')" class="field-error">Érvénytelen telefonszám.</small>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Jelszó *</label>
+      <input id="password" type="password" autocomplete="new-password" formControlName="password" data-cy="reg-password" />
+      <small *ngIf="hasError('password','required')" class="field-error">Jelszó kötelező.</small>
+      <small *ngIf="hasError('password','minlength')" class="field-error">Legalább 8 karakter.</small>
+      <small *ngIf="hasError('password','pattern')" class="field-error">
+        Tartalmazzon betűt és számot is.
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="passwordConfirm">Jelszó megerősítése *</label>
+      <input id="passwordConfirm" type="password" autocomplete="new-password" formControlName="passwordConfirm" data-cy="reg-password-confirm" />
+      <small *ngIf="passwordMismatch" class="field-error">A két jelszó nem egyezik.</small>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="button button-primary" [disabled]="submitting()" data-cy="reg-submit">
+        {{ submitting() ? 'Regisztráció...' : 'Regisztrálok' }}
+      </button>
+    </div>
+
+    <p class="auth-form__hint">
+      Már van fiókod? <a routerLink="/login">Jelentkezz be</a>.
+    </p>
+  </form>
+</section>
