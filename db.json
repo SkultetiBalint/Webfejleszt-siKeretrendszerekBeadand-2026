@@ -43,6 +43,14 @@
       "phone": "+36301111111",
       "role": "client",
       "id": 5
+    },
+    {
+      "email": "tojastomi@example.hu",
+      "password": "$2a$10$LeVMkV5P4NEtCRHw4o9JNOfMXS1BEYA38V/XbU/I3EGWMqM7wyURi",
+      "role": "client",
+      "fullName": "Tojás Tamás",
+      "phone": "+36700505050",
+      "id": 6
     }
   ],
   "nailArtists": [
@@ -212,6 +220,15 @@
       "status": "pending",
       "note": "Először járok, kérek ajánlást színhez.",
       "createdAt": "2026-04-22T17:42:00.000Z"
+    },
+    {
+      "userId": 6,
+      "serviceId": 5,
+      "appointmentDate": "2027-02-13T03:12:00.000Z",
+      "status": "pending",
+      "note": "",
+      "createdAt": "2026-05-10T09:30:03.969Z",
+      "id": 3
     }
   ],
   "reviews": [
